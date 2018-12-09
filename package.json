@@ -1,8 +1,8 @@
 {
   "scripts": {
     "reset": "rm -R ./node_modules ; rm ./package-lock.json ; npm i",
-    "dev": "babel ./src/billiards.js --presets=env --watch --out-file $MMDST/billiards-js/billiards.min.js",
-    "build": "rimraf $MMDST/billiards-js && cpx './src/**/*.html' $MMDST/billiards-js && babel ./src/billiards.js --presets=env --out-file ./src/billiards.min.js && google-closure-compiler --js=./src/billiards.min.js --js_output_file=$MMDST/billiards-js/billiards.min.js"
+    "dev": "babel ./src/billiards.js --presets=env --watch --out-file ./billiards.min.js",
+    "build": "babel ./src/billiards.js --presets=env --out-file ./billiards.min.js && google-closure-compiler --js=./billiards.min.js --js_output_file=billiards.min.js"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
