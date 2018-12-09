@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="author" content="mimonelu">
+    <meta name="copyright" content="Copyright (c) 2018 mimonelu">
+    <meta name="description" content="Pure JavaScript library to play animation like a billiards with canvas.">
+    <meta name="format-detection" content="email=no, telephone=no, address=no">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, shrink-to-fit=no, width=device-width">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="billiards.js">
+    <title>billiards.js</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css" rel="stylesheet">
+    <style>
+
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: #fffff0;
+  color: #000000;
+  font-family: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Hiragino Sans", "游ゴシック  Medium", Meiryo, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 5vmin;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+}
+a {
+  color: #f00000;
+  -webkit-tap-highlight-color: transparent;
+}
+a:hover {
+  text-decoration: none;
+}
+p {
+  font-size: 0.875em;
+  line-height: 1.25em;
+}
+canvas {
+  display: block;
+}
+section canvas {
+  margin-bottom: 32px;
+}
+.billiards-1 {
+  background-image: linear-gradient(to bottom, #ffffd0, #d0ffff);
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+header p {
+  margin: 32px;
+}
+h1 {
+  font-size: 3.0em;
+  margin: 32px;
+  word-break: break-all;
+}
+h2 {
+  font-size: 2.5rem;
+  margin: 32px;
+  word-break: break-all;
+}
+h3 {
+  font-size: 2.0rem;
+  margin: 32px;
+  word-break: break-all;
+}
+ul {
+  margin: 32px 32px 32px 64px;
+}
+li {
+  font-size: 0.875em;
+}
+li:not(:last-child) {
+  margin-bottom: 8px;
+}
+.global-footer {
+  padding: 32px 0 64px;
+}
+.global-footer > small {
+  font-size: 0.75rem;
+  display: block;
+  text-align: center;
+}
+
+    </style>
+  </head>
+  <body>
+    <canvas class="billiards-1"></canvas>
+    <article>
+      <header>
+        <h1>billiards.js</h1>
+        <p>
+          Pure JavaScript library to play animation like a billiards with canvas.<br>
+          <a href="./billiards.min.js" target="_blank">Download billiards.min.js</a><!-- / <a href="https://github.com/mimonelu/billiards.js">View on GitHub</a> -->
+        </p>
+      </header>
+      <main>
+        <section>
+          <h2>Overview</h2>
+          <ul>
+            <li>A library for a bit of visual exhibition.</li>
+            <li>No dependencies.</li>
+            <li>Lightweight (6kb).</li>
+            <li>MIT license.</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Samples</h2>
+          <section>
+            <h3>Basic</h3>
+            <canvas class="billiards-2"></canvas>
+          </section>
+          <section>
+            <h3>No rebound</h3>
+            <canvas class="billiards-3"></canvas>
+          </section>
+          <section>
+            <h3>No collide</h3>
+            <canvas class="billiards-4"></canvas>
+          </section>
+          <section>
+            <h3>Translucent fillStyle property</h3>
+            <canvas class="billiards-5"></canvas>
+          </section>
+          <section>
+            <h3>Customizable render function</h3>
+            <canvas class="billiards-6"></canvas>
+          </section>
+        </section>
+      </main>
+      <footer class="global-footer">
+        <small>Copyright &copy; 2018 mimonelu</small>
+      </footer>
+    </article>
+    <script src="./billiards.min.js"></script>
+    <script>
+
+var billiards1 = new Billiards({
+  'canvas': document.querySelector('.billiards-1'),
+  'fitToWindow': true,
+  'number': 8,
+  'x': [ 0, 1.0 ],
+  'y': [ 0, 1.0 ],
+  'r': [ 0.2, 0.25 ],
+  'color': {
+    'r': [ 0, 240 ],
+    'g': [ 192, 240 ],
+    'b': [ 192, 240 ],
+    'a': [ 0.25, 0.25 ]
+  },
+  'velocity': [ 0.5, 0.5 ]
+});
+
+var billiards2 = new Billiards({
+  'canvas': document.querySelector('.billiards-2'),
+  'fitToParentW': true,
+  'height': '240',
+  'fillStyle': '#80f080',
+  'number': 8,
+  'r': [ 0.1, 0.2 ],
+  'color': {
+    'r': [ 255, 255 ],
+    'g': [ 0, 255 ],
+    'b': [ 0, 0 ],
+    'a': [ 1.0, 1.0 ]
+  },
+  'velocity': [ 0.5, 1.0 ]
+});
+
+var billiards3 = new Billiards({
+  'canvas': document.querySelector('.billiards-3'),
+  'fitToParentW': true,
+  'height': '240',
+  'fillStyle': '#80f0f0',
+  'number': 32,
+  'x': [ 0, 1.0 ],
+  'y': [ 1.0, 1.0 ],
+  'r': [ 0.025, 0.1 ],
+  'color': {
+    'r': [ 255, 255 ],
+    'g': [ 255, 255 ],
+    'b': [ 255, 255 ],
+    'a': [ 1.0, 1.0 ]
+  },
+  'velocity': [ 0.5, 1.0 ],
+  'rebound': false
+});
+
+var billiards4 = new Billiards({
+  'canvas': document.querySelector('.billiards-4'),
+  'fitToParentW': true,
+  'height': '240',
+  'fillStyle': 'rgba(64, 0, 64, 0.25)',
+  'number': 16,
+  'r': [ 0.2, 0.3 ],
+  'color': {
+    'r': [ 128, 255 ],
+    'g': [ 128, 255 ],
+    'b': [ 128, 255 ],
+    'a': [ 0.1, 0.1 ]
+  },
+  'composite': 'lighter',
+  'velocity': [ 0.5, 1.0 ],
+  'collide': false
+});
+
+var billiards5 = new Billiards({
+  'canvas': document.querySelector('.billiards-5'),
+  'fitToParentW': true,
+  'height': '240',
+  'fillStyle': 'transparent',
+  'number': 8,
+  'x': [ 0.5, 0.5 ],
+  'y': [ 0.5, 0.5 ],
+  'r': [ 0.01, 0.04 ],
+  'color': {
+    'r': [ 0, 255 ],
+    'g': [ 0, 255 ],
+    'b': [ 0, 255 ],
+    'a': [ 1.0, 1.0 ]
+  },
+  'velocity': [ 0.5, 1.0 ]
+});
+
+var image = new Image();
+image.onload = function () {
+  var billiards6 = new Billiards({
+    'canvas': document.querySelector('.billiards-6'),
+    'fitToParentW': true,
+    'height': '240',
+    'fillStyle': '#404040',
+    'number': 16,
+    'r': [ 0.1, 0.2 ],
+    'color': {
+      'r': [ 192, 255 ],
+      'g': [ 128, 255 ],
+      'b': [ 0, 255 ],
+      'a': [ 1.0, 1.0 ]
+    },
+    'velocity': [ 1.0, 2.0 ],
+    'margin': - 4,
+    'render': function (billiards, sprite) {
+      billiards.context.translate(- sprite.r, - sprite.r);
+      billiards.context.drawImage(image, sprite.x, sprite.y, sprite.r * 2, sprite.r * 2);
+      billiards.context.translate(sprite.r, sprite.r);
+    }
+  });
+};
+image.src = 'https://github.com/fluidicon.png';
+
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128584959-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-128584959-1');
+    </script>
+  </body>
+</html>
